@@ -1,0 +1,45 @@
+required:
+  genome: "/home/patienza/oscars/erga/data/Canis_aureus/mCanAur2.pri.cur.20230619.fasta"
+  input: "/home/patienza/oscars/erga/preprocessing/C_aureus/C_aureus_cluster.bam"
+  outdir: "annotations/trial"
+  toolsdir: "/home/patienza/Programs/lr_annotation"
+  log_level: "INFO"
+sqanti:
+  json_rules: "/home/patienza/oscars/genomes_benchmark/data/filter_rules.json"
+augustus:
+  prediction: ab_initio
+  reference_gtf: ""
+  species_name: "canis_aureus"
+  utr: False
+  mode: split
+qc:
+  omark_db: Metazoa
+  omark_taxid: 1758
+ab_initio:
+  lineage: "carnivora_odb12"
+  miniprot_threshold: 0.95
+  flanking_region: 1000
+  test_size: 5000
+resources:
+  big:
+    cpus: 10
+    mem: 30G
+    time: 24h
+    qos: long
+  busco:
+    cpus: 30
+    mem: 140G
+    time: 240h
+    qos: long
+  small:
+    cpus: 2
+    mem: 8G
+    time: 2h
+    qos: short  
+  small_bigMem:
+    mem: 30G
+  medium:
+    cpus: 8
+    mem: 120G
+    time: 10h
+    qos: short
