@@ -3,8 +3,8 @@
 #SBATCH --mem 60G
 #SBATCH -c 25
 #SBATCH -t 48:00:00
-#SBATCH -o logs/reads_salvelinus.out
-#SBATCH -e logs/reads_salvelinus.err
+#SBATCH -o logs/reads_salvelinus.log
+#SBATCH -e logs/reads_salvelinus.log
 #SBATCH -J salvelinus_prepro
 
 
@@ -13,6 +13,13 @@ set -eou pipefail
 module load anaconda
 source activate isoseq
 
-pbmerge data/Salvelinus_alpinus/*.bam -o results/S_alpinus/All_tissues.flnc.bam
+outdir=results/preprocessing/S_alpinus
 
-isoseq cluster2 results/S_alpinus/All_tissues.flnc.bam results/preprocessing/S_alpinus/All_tissues.cluster.bam
+mkdir -p $outdir
+
+pbmerge data/Salvelinus_alpinus/*.bam -o $outdir/All_tissues.flnc.bam
+
+echo "Files merged, running cluster"
+isoseq cluster2 $outdir/All_tissues.flnc.bam $outdir/All_tissues.cluster.bam
+
+echo "Clustered and done"
